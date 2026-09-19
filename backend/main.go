@@ -44,9 +44,10 @@ func main() {
 
 	r := gin.Default()
 
+	// Allow requests from the deployed CANVASS frontend.
 	r.Use(cors.New(cors.Config{
 		AllowOrigins: []string{
-			"https://YOUR-VERCEL-URL.vercel.app",
+			"https://canvass-self.vercel.app",
 		},
 		AllowMethods: []string{
 			"GET",
@@ -67,13 +68,16 @@ func main() {
 
 	api := r.Group("/api")
 
+	// Authentication
 	api.POST("/auth/signup", app.signup)
 	api.POST("/auth/login", app.login)
 
+	// Polls
 	api.GET("/polls/:id", app.getPoll)
 	api.POST("/polls/:id/vote", app.vote)
 	api.GET("/polls/:id/stream", app.streamPoll)
 
+	// Poll creation requires authentication.
 	api.POST(
 		"/polls",
 		app.requireAuth(),
