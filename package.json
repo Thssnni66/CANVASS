@@ -1,0 +1,5 @@
+{
+  "name": "live_poll_app",
+  "private": true,
+  "description": "GUVI live polling MVP — run frontend and backend separately (see README)."
+}
